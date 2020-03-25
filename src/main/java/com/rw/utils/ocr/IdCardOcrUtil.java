@@ -25,7 +25,7 @@ public class IdCardOcrUtil {
 
     public static void main(String[] args) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String text = IdCardOcrUtil.getIdCardCode(rootPath + "/test/xx4.jpg");
+        String text = IdCardOcrUtil.getIdCardCode(rootPath + "/test/11.jpg");
         System.out.println(text);
     }
 
@@ -33,11 +33,10 @@ public class IdCardOcrUtil {
         // 原图
         Mat rgbMat = Imgcodecs.imread(imagePath);
         Rect rect = detectTextArea(rgbMat);
-        String text = getCharText(rgbMat, rect);
-        return text;
+        return getCharText(rgbMat, rect);
     }
 
-    private static String getCharText(Mat srcMat, Rect rect) {
+    public static String getCharText(Mat srcMat, Rect rect) {
         if (svmTrain == null) {
             svmTrain = new CharSvm();
             SVM svm = SVM.load(rootPath + svmXml);
@@ -88,7 +87,7 @@ public class IdCardOcrUtil {
 
     }
 
-    private static Rect detectTextArea(Mat srcMat) {
+    public static Rect detectTextArea(Mat srcMat) {
         // 灰度图
         Mat grayMat = new Mat();
         // 灰度化
